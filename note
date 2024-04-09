@@ -1,0 +1,39 @@
+//    sqlite3* db;
+//    int rc = sqlite3_open(R"(\\YJJNAS\Nas2Server\XieJiYe\matching\my_database.db)", &db);  // 打开或创建数据库文件
+//
+//    if (rc) {
+//        fprintf(stderr, "can not open the database: %s\n", sqlite3_errmsg(db));
+//        sqlite3_close(db);
+//        return 1;
+//    }
+//    auto start = std::chrono::high_resolution_clock::now();
+//    for (int i=0; i <=1000000; ++i) {
+//        const char *selectSql = "SELECT * FROM bus where idx == 2000;";
+//        sqlite3_stmt *stmt;
+//        rc = sqlite3_prepare_v2(db, selectSql, -1, &stmt, 0);  // 准备SQL语句
+//
+//        if (rc != SQLITE_OK) {
+//            fprintf(stderr, "can not prepare SQL: %s\n", sqlite3_errmsg(db));
+//            sqlite3_close(db);
+//            return 1;
+//        }
+//
+//        while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
+//            int id = sqlite3_column_int(stmt, 0);
+//            const unsigned char *CARDNO = sqlite3_column_text(stmt, 1);
+//            int DESTSTOP = sqlite3_column_int(stmt, 2);
+//            const unsigned char *date = sqlite3_column_text(stmt, 2);
+////            std::cout << id << "\t" << CARDNO << "\t" << DESTSTOP << "\t" << date << std::endl;
+//        }
+//    }
+////
+////    if (rc != SQLITE_DONE) {
+////        fprintf(stderr, "查询失败: %s\n", sqlite3_errmsg(db));
+////    }
+////
+////    sqlite3_finalize(stmt);  // 释放预编译的SQL语句
+//    auto end = std::chrono::high_resolution_clock::now();
+//    std::chrono::duration<double, std::milli> elapsed = end - start;
+//    std::cout << "Execution time: " << elapsed.count() << " ms" << std::endl;
+//    sqlite3_close(db);  // 关闭数据库
+//    return 0;
