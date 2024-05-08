@@ -1,55 +1,38 @@
-#include <iostream>
-#include "string"
-#include "Csv.hpp"
-#include <unordered_map>
-#include "vector"
-#include "sqlite3.h"
-#include <chrono>
-
+#include "csv-parser/include/csv.hpp"
+#include "make_index.hpp"
 
 int main() {
     auto start = std::chrono::high_resolution_clock::now();
-    std::string metro_path = R"(D:\mycodes\PythonProjects\SmallThesis\raw data\sampledmetroUTF8.csv)";
-    io::CSVReader<5> in(metro_path);
-    in.read_header(io::ignore_extra_column, "CARDNO","ORGSTOP","DESTSTOP","ORGDATE","DESTDATE");
+//    std::string bus_path = R"(N:\XieJiYe\matching\allbusUTF8withmetrostopSorted.csv)";
+//    std::string metro_path = R"(N:\XieJiYe\matching\allmetroUTF8StationCodedSorted.csv)";
 
+    std::string bus_path = R"(\\YJJNAS\Nas2Server\XieJiYe\matching\allbusUTF8withmetrostopSorted.csv)";
+    std::string metro_path = R"(\\YJJNAS\Nas2Server\XieJiYe\matching\allmetroUTF8StationCodedSorted.csv)";
 
+    std::vector<const char*> bus_headers = {"idx", "CARDNO", "CONSUMEDATE", "LONGITUDE", "LATITUDE", "NEARBYMETROSTOP"};
+    std::vector<const char*> metro_headers = {"idx", "CARDNO", "DESTSTOP", "DESTDATE"};
 
-    std::vector<std::string> a;
-    std::vector<short int> b;
-    std::vector<short int> c;
-    std::vector<std::string> d;
-    std::vector<std::string> e;
+    std::string bus_type = "bus";
+    std::string metro_type = "metro";
 
-    std::string cardno;
-    short int orgstop;
-    short int deststop;
-    std::string orgdate;
-    std::string destdate;
+    Make_bus_idx makeBusIdx(bus_path, bus_type, bus_headers);
+    std::vector<Make_bus_idx::Busrawdata> bus_data = makeBusIdx.csv2vector();
 
-    while(in.read_row(cardno, orgstop, deststop, orgdate, destdate)){
-        a.push_back(cardno);
-        b.push_back(orgstop);
-        c.push_back(deststop);
-        d.push_back(orgdate);
-        e.push_back(destdate);
-    }
+    Make_metro_idx makeMetroIdx(metro_path, metro_type, metro_headers);
+    std::vector<Make_metro_idx::Metrorawdata> metro_data = makeMetroIdx.csv2vector();
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> elapsed = end - start;
     std::cout << "Execution time: " << elapsed.count() / 1000 << " s" << std::endl;
 
-    auto loop_start = std::chrono::high_resolution_clock::now();
-    for(int i = 0; i <= 10000000; ++i) {
-        std::string aaa = a[i];
-        short int bbb = b[i];
-        short int ccc = c[i];
-        std::string ddd = d[i];
-        std::string eee = e[i];
-    }
-    auto loop_end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double, std::milli> loop_elapsed = loop_end - loop_start;
-    std::cout << "For loop Execution time: " << loop_elapsed.count() / 1000 << " s" << std::endl;
-    return 0;
+//    std::string trans_path = R"(N:\XieJiYe\matching\transfer data\metro_bus_user_pair_trips_idx_part50001.csv)";
+//    std::vector<std::string> trans_col = {"BUSCARDNO", "BUSDATAIDX", "METROCARDNO", "METRODATAIDX"};
+//    Trans trans(trans_path, trans_col);
+//    int a = trans.transfer_details_statistics(bus_data, metro_data);
+//
+//    std::cout << "Process finish! " << std::endl;
+//    // 等待用户输入，这里使用了std::cin.get()来实现
+//    std::cin.get();
+//    return a;
 
 }
