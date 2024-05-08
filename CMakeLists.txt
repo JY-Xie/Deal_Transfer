@@ -13,7 +13,7 @@ project(Transfer)
 
 set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(csv-parser)
-add_executable(Transfer main.cpp make_index.hpp make_index.cpp)
+add_executable(Transfer main.cpp make_index.hpp make_index.cpp read_tran.cpp read_tran.hpp)
 
 
 find_package(Threads REQUIRED)
