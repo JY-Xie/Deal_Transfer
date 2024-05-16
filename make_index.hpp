@@ -1,9 +1,7 @@
 //
 // Created by XieJiYe on 2024/4/9.
 //
-/*
- *  修改本文件的宏定义来控制读取csv的列数，需要在编译时定义
- */
+
 #ifndef TRANSFER_MAKE_INDEX_HPP
 #define TRANSFER_MAKE_INDEX_HPP
 #pragma once

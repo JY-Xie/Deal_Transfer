@@ -5,22 +5,8 @@
 #include <iomanip>
 #include "make_index.hpp"
 #include "iostream"
-#include "csv-parser/include/csv.hpp"
-
-
-namespace My_utils{
-    std::chrono::system_clock::time_point string_to_time(const std::string& time_str) {
-        std::istringstream ss(time_str);
-        std::tm tm = {};
-        ss >> std::get_time(&tm, "%Y-%m-%d %H:%M:%S");
-        if (ss.fail()) {
-            // Handle error, e.g. by throwing an exception
-            return std::chrono::system_clock::from_time_t(0);
-        }
-        return std::chrono::system_clock::from_time_t(std::mktime(&tm));
-    }
-}
-
+#include "csv.hpp"
+#include "my_utils.hpp"
 
 Make_bus_idx::Make_bus_idx(std::string &file_path, std::string &data_type, std::vector<const char*> &column_name) {
     this->file_path = file_path;
